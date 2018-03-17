@@ -23,6 +23,11 @@ docker image ls
 docker container ls
 docker container ls --all
 docker container ls -aq
+
+## Helpers
+docker rm $(docker ps -a -q)            # Remove all containers
+docker rmi $(docker images -q)          # Try removing all images  
+
 ```
 
 ## Container
@@ -39,6 +44,7 @@ docker container rm $(docker container ls -a -q)         # Remove all containers
 docker image ls -a                             # List all images on this machine
 docker image rm <image id>            # Remove specified image from this machine
 docker image rm $(docker image ls -a -q)   # Remove all images from this machine
+docker image inspect <image id>            # print image details
 docker login             # Log in this CLI session using your Docker credentials
 docker tag <image> username/repository:tag  # Tag <image> for upload to registry
 docker push username/repository:tag            # Upload tagged image to registry
@@ -82,4 +88,12 @@ docker-machine ssh myvm1 "docker stack deploy -c <file> <app>"   # Deploy an app
 eval $(docker-machine env -u)     # Disconnect shell from VMs, use native docker
 docker-machine stop $(docker-machine ls -q)               # Stop all running VMs
 docker-machine rm $(docker-machine ls -q) # Delete all VMs and their disk images
+```
+
+## Network
+
+```
+docker network create --driver bridge test-net              # Create user-defined bridge network
+docker network ls                                           # List Docker networks
+docker network inspect <Network ID>                         # shows details of given network
 ```
